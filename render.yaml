@@ -1,0 +1,17 @@
+# Render Blueprint for the React frontend (static site).
+# Use it with: Render dashboard -> New -> Blueprint -> select the repo that contains this file.
+services:
+  - type: web
+    name: apexstore-frontend
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_BACKEND_URL     # public URL of the deployed backend, e.g. https://apexstore-backend.onrender.com
+        sync: false
+      - key: NODE_VERSION
+        value: "22"
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
